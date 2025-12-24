@@ -1,0 +1,12 @@
+{
+  "name": "produtos-app",
+  "version": "1.0.0",
+  "description": "Aplicação de lista de produtos",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

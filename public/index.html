@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Produtos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .produto-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .produto-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .produto-id {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .produto-nome {
+      font-size: 1.3rem;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .produto-valor {
+      font-size: 1.5rem;
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .loading {
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .footer {
+      text-align: center;
+      color: white;
+      margin-top: 40px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛒 Lista de Produtos</h1>
+    <div id="produtos" class="produtos-grid">
+      <p class="loading">Carregando produtos...</p>
+    </div>
+    
+  </div>
+
+  <script>
+    // Função para formatar valor em Real
+    function formatarMoeda(valor) {
+      return valor.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+    }
+
+    // Buscar produtos da API
+    async function carregarProdutos() {
+      try {
+        const response = await fetch('/api/produtos');
+        const produtos = await response.json();
+        
+        const container = document.getElementById('produtos');
+        container.innerHTML = '';
+
+        produtos.forEach(produto => {
+          const card = document.createElement('div');
+          card.className = 'produto-card';
+          card.innerHTML = `
+            <span class="produto-id">ID: ${produto.id}</span>
+            <h2 class="produto-nome">${produto.nome}</h2>
+            <p class="produto-valor">${formatarMoeda(produto.valor)}</p>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+        document.getElementById('produtos').innerHTML = 
+          '<p class="loading">Erro ao carregar produtos</p>';
+      }
+    }
+
+    // Carregar produtos ao iniciar
+    carregarProdutos();
+  </script>
+</body>
+</html>
