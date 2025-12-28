@@ -1,0 +1,49 @@
+name: Deploy to AWS (Debian)
+
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: admin  # Ajustado para o usuário específico 'admin'
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: |
+          # 1. Navegar até a pasta do projeto (Caminho ajustado para Debian/admin)
+          # Certifique-se de ter clonado o projeto dentro de /home/admin/
+          cd /home/admin/DevOps-atividade
+
+
+          # 2. Atualizar código
+          git pull origin main
+
+
+          # 3. Instalar dependências
+          npm install
+
+
+          # 4. Build (Se necessário, descomente a linha abaixo)
+          # npm run build
+
+
+          # 5. Reiniciar aplicação (Exemplo com PM2)
+          # Se o comando pm2 não for encontrado, use o caminho completo (ex: /usr/bin/pm2)
+          pm2 restart all
+          
+          echo "Deploy no Debian finalizado!"
