@@ -31,7 +31,7 @@ jobs:
 
 
           # 2. Atualizar código
-          git pull origin main
+          git pull origin master
 
 
           # 3. Instalar dependências
