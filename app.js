@@ -15,7 +15,7 @@ const produtos = [
   { id: 7, nome: "SSD 1TB", valor: 520.00 },
   { id: 8, nome: "Memória RAM 16GB", valor: 380.00 },
   { id: 9, nome: "Placa de Vídeo RTX", valor: 4200.00 },
-  { id: 10, nome: "Gabinete Gamer", valor: 650.00 }
+  { id: 10, nome: "Gabinete Gamer", valor: 650.00 },
   { id: 11, nome: "Teste", valor: 620.00 }
 ];
 
