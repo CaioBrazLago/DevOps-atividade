@@ -7,7 +7,7 @@ WORKDIR /home/node/app
 # Install app dependencies
 COPY --chown=node:node package*.json ./
 
-USER node
+USER root
 
 RUN npm install
 
