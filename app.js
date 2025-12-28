@@ -16,7 +16,8 @@ const produtos = [
   { id: 8, nome: "Memória RAM 16GB", valor: 380.00 },
   { id: 9, nome: "Placa de Vídeo RTX", valor: 4200.00 },
   { id: 10, nome: "Gabinete Gamer", valor: 650.00 },
-  { id: 11, nome: "Teste", valor: 620.00 }
+  { id: 11, nome: "Teste", valor: 620.00 },
+  { id: 12, nome: "Teste_video", valor: 400.00 }
 ];
 
 // Servir arquivos estáticos
